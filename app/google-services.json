@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "219473851721",
+    "firebase_url": "https://test-3cfdc.firebaseio.com",
+    "project_id": "test-3cfdc",
+    "storage_bucket": "test-3cfdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219473851721:android:2dd0d008e855dd58",
+        "android_client_info": {
+          "package_name": "com.bukakado.bukakado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219473851721-1gnfo8r8s36lbbd6i10c9ppkl4nmkgtq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRx6vkCCj2Vr7K-49Eo0Zyhrx9aRQJ7Qs"
+        },
+        {
+          "current_key": "AIzaSyCR76KC6ImkYJKJ9kl8RDRy9uUMPSoLnL4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
