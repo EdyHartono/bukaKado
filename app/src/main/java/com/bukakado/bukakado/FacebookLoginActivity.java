@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bukakado.bukakado.model.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class FacebookLoginActivity extends BaseActivity implements
@@ -93,6 +95,7 @@ public class FacebookLoginActivity extends BaseActivity implements
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        insertUser(currentUser);
         updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -147,14 +150,18 @@ public class FacebookLoginActivity extends BaseActivity implements
         updateUI(null);
     }
 
+    private void insertUser(FirebaseUser user) {
+        if(user != null) {
+            User appUser = new User(user);
+            FirebaseDatabase.getInstance().getReference("users").child(user.getUid()).setValue(appUser);
+        }
+    }
+
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getDisplayName()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-            findViewById(R.id.button_facebook_login).setVisibility(View.GONE);
-            findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
+            Intent intent = new Intent(this, ChatActivity.class);
+            startActivity(intent);
         } else {
             mStatusTextView.setText("Sign Out");
             mDetailTextView.setText(null);
