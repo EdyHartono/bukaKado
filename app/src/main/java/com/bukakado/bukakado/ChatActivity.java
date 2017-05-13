@@ -62,7 +62,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private void displayChatMessage() {
         ListView listOfMessages = (ListView)findViewById(R.id.msgListView);
-        ArrayAdapter<R.layout.>
 
         adapter = new FirebaseListAdapter<NewChatRequest>(this, NewChatRequest.class, R.layout.message_layout, FirebaseDatabase.getInstance().getReference("chats")) {
             @Override
