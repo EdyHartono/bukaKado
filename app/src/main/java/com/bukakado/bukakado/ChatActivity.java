@@ -3,15 +3,19 @@ package com.bukakado.bukakado;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bukakado.bukakado.constant.VariableKeys;
 import com.bukakado.bukakado.model.NewChatRequest;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -22,11 +26,16 @@ public class ChatActivity extends AppCompatActivity {
 
     private FirebaseListAdapter<NewChatRequest> adapter;
     private FirebaseAuth mAuth;
+    private DatabaseReference chatDbReference;
+    private String toUserId;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
+        toUserId = getIntent().getExtras().getString(VariableKeys.CHAT_TO_USER);
         setContentView(R.layout.layout);
+        chatDbReference = FirebaseDatabase.getInstance().getReference("chats");
+        mAuth = FirebaseAuth.getInstance();
 
         ImageButton sendBtn = (ImageButton) findViewById(R.id.sendMessageButton);
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -36,14 +45,11 @@ public class ChatActivity extends AppCompatActivity {
 
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
-                FirebaseDatabase.getInstance()
-                        .getReference("chats")
-                        .push()
-                        .setValue(
+                chatDbReference.push().setValue(
                                 new NewChatRequest(
                                         input.getText().toString(),
                                         FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                                        "vo1yv0rudgWoj3Lc2Y20OTTBpiP2"
+                                        toUserId
                                 )
                         );
 
@@ -51,16 +57,14 @@ public class ChatActivity extends AppCompatActivity {
                 input.setText("");
             }
         });
-
-        mAuth = FirebaseAuth.getInstance();
         displayChatMessage();
     }
 
     private void displayChatMessage() {
         ListView listOfMessages = (ListView)findViewById(R.id.msgListView);
+        ArrayAdapter<R.layout.>
 
-        adapter = new FirebaseListAdapter<NewChatRequest>(this, NewChatRequest.class,
-                R.layout.message_layout, FirebaseDatabase.getInstance().getReference("chats")) {
+        adapter = new FirebaseListAdapter<NewChatRequest>(this, NewChatRequest.class, R.layout.message_layout, FirebaseDatabase.getInstance().getReference("chats")) {
             @Override
             protected void populateView(View v, NewChatRequest model, int position) {
                 // Get references to the views of message.xml
@@ -69,7 +73,9 @@ public class ChatActivity extends AppCompatActivity {
                 TextView messageTime = (TextView)v.findViewById(R.id.message_time);
 
                 // Set their text
+                messageText.setGravity(Gravity.END);
                 messageText.setText(model.getMessage());
+                messageUser.setGravity(Gravity.END);
                 messageUser.setText(model.getTo());
             }
         };

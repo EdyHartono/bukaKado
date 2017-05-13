@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bukakado.bukakado.constant.VariableKeys;
 import com.bukakado.bukakado.model.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -174,6 +175,9 @@ public class FacebookLoginActivity extends BaseActivity implements
 
             //Intent intent = new Intent(this, ChatActivity.class);
             //startActivity(intent);
+            // Intent intent = new Intent(this, ChatActivity.class);
+            // intent.putExtra(VariableKeys.CHAT_TO_USER, "vo1yv0rudgWoj3Lc2Y20OTTBpiP2");
+            // startActivity(intent);
         } else {
             mStatusTextView.setText("Sign Out");
             mDetailTextView.setText(null);
