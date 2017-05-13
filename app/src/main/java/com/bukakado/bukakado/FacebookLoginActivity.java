@@ -1,8 +1,10 @@
 package com.bukakado.bukakado;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -161,9 +163,21 @@ public class FacebookLoginActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            Intent intent = new Intent(this, ChatActivity.class);
-            intent.putExtra(VariableKeys.CHAT_TO_USER, "vo1yv0rudgWoj3Lc2Y20OTTBpiP2");
-            startActivity(intent);
+           startActivity(new Intent(FacebookLoginActivity.this,MainActivity.class));
+            //TODO must be delete
+            /*
+            mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getPhotoUrl()));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+
+            findViewById(R.id.button_facebook_login).setVisibility(View.GONE);
+            findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
+            */
+
+            //Intent intent = new Intent(this, ChatActivity.class);
+            //startActivity(intent);
+            // Intent intent = new Intent(this, ChatActivity.class);
+            // intent.putExtra(VariableKeys.CHAT_TO_USER, "vo1yv0rudgWoj3Lc2Y20OTTBpiP2");
+            // startActivity(intent);
         } else {
             mStatusTextView.setText("Sign Out");
             mDetailTextView.setText(null);
