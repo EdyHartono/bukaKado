@@ -11,16 +11,20 @@ public class User {
     private String userName;
     private String photoUrl;
     private String email;
+    private String country;
+    private String sex;
 
     public User() {
 
     }
 
-    public User(String userId, String userName, String photoUrl, String email) {
+    public User(String userId, String userName, String photoUrl, String email, String country, String sex) {
         this.userId = userId;
         this.userName = userName;
         this.photoUrl = photoUrl;
         this.email = email;
+        this.country = country;
+        this.sex = sex;
     }
 
     public User(FirebaseUser user) {
@@ -28,7 +32,8 @@ public class User {
                 user.getUid(),
                 user.getDisplayName(),
                 user.getPhotoUrl().toString(),
-                user.getEmail()
+                user.getEmail(),
+                "",""
         );
     }
 
@@ -63,4 +68,20 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
 }

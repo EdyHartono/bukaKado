@@ -1,10 +1,11 @@
 package com.bukakado.bukakado;
 
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AppCompatActivity;
+
 /**
  * Created by edy.h on 5/10/2017.
  */
@@ -33,5 +34,14 @@ public class BaseActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         hideProgressDialog();
+    }
+
+    public static class UserListActivity extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_user_list);
+        }
     }
 }

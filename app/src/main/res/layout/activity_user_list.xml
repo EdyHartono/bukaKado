@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.bukakado.bukakado.BaseActivity$UserListActivity">
+
+
+
+    <RelativeLayout android:paddingTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgUserPhoto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hidayat Hendrakusuma"
+            android:layout_alignTop="@+id/imgUserPhoto"
+            android:layout_toEndOf="@+id/imgUserPhoto"
+            android:layout_marginStart="13dp"
+            android:id="@+id/txtUserName"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Indonesia"
+            android:id="@+id/txtUserCountry"
+            android:textSize="15sp"
+            android:layout_below="@+id/txtUserName"
+            android:layout_alignStart="@+id/txtUserName"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/txtUserSex"
+            android:textSize="13sp"
+            android:layout_below="@+id/txtUserCountry"
+            android:layout_alignStart="@+id/txtUserCountry"
+            android:layout_marginTop="5dp"/>
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:id="@+id/requestBtn"
+            android:text="Request"
+            android:textSize="10sp"
+            android:layout_below="@+id/txtUserSex"
+            android:layout_alignStart="@+id/txtUserSex"
+            android:layout_marginLeft="-3dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_below="@+id/requestBtn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"/>
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
