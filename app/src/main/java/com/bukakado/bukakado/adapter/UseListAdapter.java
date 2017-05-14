@@ -1,23 +1,16 @@
 package com.bukakado.bukakado.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bukakado.bukakado.DownloadActivity;
+import com.bukakado.bukakado.activity.DownloadActivity;
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.model.User;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**

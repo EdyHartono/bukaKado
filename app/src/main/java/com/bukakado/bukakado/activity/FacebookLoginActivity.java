@@ -1,16 +1,14 @@
-package com.bukakado.bukakado;
+package com.bukakado.bukakado.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bukakado.bukakado.constant.VariableKeys;
+import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.model.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -163,7 +161,7 @@ public class FacebookLoginActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-           startActivity(new Intent(FacebookLoginActivity.this,MainActivity.class));
+           startActivity(new Intent(FacebookLoginActivity.this,LoginActivity.class));
             //TODO must be delete
             /*
             mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getPhotoUrl()));

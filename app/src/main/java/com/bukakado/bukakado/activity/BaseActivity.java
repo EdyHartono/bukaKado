@@ -1,10 +1,12 @@
-package com.bukakado.bukakado;
+package com.bukakado.bukakado.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;
+
+import com.bukakado.bukakado.R;
 
 /**
  * Created by edy.h on 5/10/2017.
