@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.adapter.UseListAdapter;
@@ -44,6 +47,7 @@ public class UserListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
+
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -51,10 +55,6 @@ public class UserListFragment extends Fragment {
 
         final List<User> myDataset;
         myDataset = new ArrayList<>();
-//        String imgUrl = "https://pbs.twimg.com/profile_images/721959333282467840/UjU1ts0_.jpg";
-//        myDataset.add(new User("1","Hidayat Hendrakusuma",imgUrl,"","Indonesia","Male"));
-//        myDataset.add(new User("1","Erwin",imgUrl,"","Indonesia","Male"));
-//        myDataset.add(new User("1","Edy Hartono",imgUrl,"","Indonesia","Male"));
         mAdapter = new UseListAdapter(myDataset);
         userDbRef.orderByKey().addChildEventListener(new ChildEventListener() {
             @Override

@@ -7,8 +7,10 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bukakado.bukakado.DownloadActivity;
 import com.bukakado.bukakado.R;
@@ -32,6 +34,7 @@ public class UseListAdapter extends RecyclerView.Adapter<UseListAdapter.ViewHold
         public View mView;
         public TextView userName, userCountry, userGender;
         public ImageView userPhoto;
+        public Button requestBtn;
 
         public ViewHolder(View v) {
             super(v);
@@ -40,11 +43,19 @@ public class UseListAdapter extends RecyclerView.Adapter<UseListAdapter.ViewHold
             userCountry = (TextView)mView.findViewById(R.id.txtUserCountry);
             userGender = (TextView)mView.findViewById(R.id.txtUserSex);
             userPhoto = (ImageView)mView.findViewById(R.id.imgUserPhoto);
+            requestBtn = (Button)mView.findViewById(R.id.requestBtn);
+
+            requestBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "button pressed in postion "+ getAdapterPosition(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
-    public UseListAdapter(List<User> myDataset) {
-        mDataset = myDataset;
+    public UseListAdapter(List<User> mDataset) {
+        this.mDataset = mDataset;
     }
 
     @Override

@@ -32,10 +32,10 @@ public class RestClient {
                 String credential = Credentials.basic(username, password);
                 return response.request().newBuilder().header("Authorization", credential).build();
             }
-        });
-        client.connectTimeout(10, TimeUnit.SECONDS);
-        client.writeTimeout(10, TimeUnit.SECONDS);
-        client.readTimeout(30, TimeUnit.SECONDS);
+        }).connectTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS);
+
         httpClient = client.build();
         return this;
     }
@@ -46,7 +46,7 @@ public class RestClient {
         return result;
     }
 
-    public <T> T doPost(String uri, T data, Class<T> typeRef) throws IOException {
+    public <T, D> T doPost(String uri, D data, Class<T> typeRef) throws IOException {
         String json = gson.toJson(data);
         Request request = new Request.Builder().post(RequestBody.create(JSON, json)).url(uri).build();
         return call(request, typeRef);
