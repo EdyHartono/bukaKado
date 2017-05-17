@@ -1,18 +1,17 @@
-package com.bukakado.bukakado;
+package com.bukakado.bukakado.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.constant.VariableKeys;
-import com.bukakado.bukakado.model.NewChatRequest;
+import com.bukakado.bukakado.model.request.NewChatRequest;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

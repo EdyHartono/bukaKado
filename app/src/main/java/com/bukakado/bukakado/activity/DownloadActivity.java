@@ -1,4 +1,4 @@
-package com.bukakado.bukakado;
+package com.bukakado.bukakado.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,24 +14,6 @@ import java.net.URL;
  */
 
 public class DownloadActivity extends AsyncTask<String,Void,Bitmap> {
-
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        // create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-
-        // resize the bit map
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // recreate the new Bitmap
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
-    }
 
     ImageView imageView;
 
@@ -53,7 +35,6 @@ public class DownloadActivity extends AsyncTask<String,Void,Bitmap> {
                         Decode an input stream into a bitmap.
                  */
             logo = BitmapFactory.decodeStream(is);
-            logo = getResizedBitmap(logo,110,110);
         }catch(Exception e){ // Catch the download exception
              e.printStackTrace();
         }

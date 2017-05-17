@@ -1,13 +1,12 @@
-package com.bukakado.bukakado;
+package com.bukakado.bukakado.activity;
 
-import android.app.FragmentManager;
+import android.support.design.widget.NavigationView;
+import android.view.View;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
 import android.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.fragment.UserListFragment;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -44,12 +44,9 @@ public class MainActivity extends AppCompatActivity
                 ImageView userImage = (ImageView) view.findViewById(R.id.userProfile);
 
                 try {
-                    JSONObject pictureResult = object.getJSONObject("picture");
-                    JSONObject dataResult = pictureResult.getJSONObject("data");
-                    String profilePicture=dataResult.getString("url");
-
+                    String profilePicture = "https://graph.facebook.com/me/picture?width=150&height=150&access_token="+AccessToken.getCurrentAccessToken().getToken();
                     userName.setText(object.getString("name").toString());
-                    //userEmail.setText(object.getString("email").toString());
+                    userEmail.setText(object.getString("email").toString());
                     new DownloadActivity(userImage).execute(profilePicture);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -104,21 +101,6 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
