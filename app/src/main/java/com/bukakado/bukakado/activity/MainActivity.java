@@ -1,22 +1,12 @@
-package com.bukakado.bukakado;
+package com.bukakado.bukakado.activity;
 
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
+import android.support.design.widget.NavigationView;
+import android.view.View;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.graphics.BitmapCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import android.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bukakado.bukakado.R;
+import com.bukakado.bukakado.fragment.UserListFragment;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -52,12 +44,9 @@ public class MainActivity extends AppCompatActivity
                 ImageView userImage = (ImageView) view.findViewById(R.id.userProfile);
 
                 try {
-                    JSONObject pictureResult = object.getJSONObject("picture");
-                    JSONObject dataResult = pictureResult.getJSONObject("data");
-                    String profilePicture=dataResult.getString("url");
-
+                    String profilePicture = "https://graph.facebook.com/me/picture?width=150&height=150&access_token="+AccessToken.getCurrentAccessToken().getToken();
                     userName.setText(object.getString("name").toString());
-                    //userEmail.setText(object.getString("email").toString());
+                    userEmail.setText(object.getString("email").toString());
                     new DownloadActivity(userImage).execute(profilePicture);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,28 +103,19 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        View mainContainer = findViewById(R.id.fragment_container);
 
         if (id == R.id.nav_camera) {
+            UserListFragment userListFragment = new UserListFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, userListFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

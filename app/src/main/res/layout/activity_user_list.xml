@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.bukakado.bukakado.BaseActivity$UserListActivity">
+    tools:context="com.bukakado.bukakado.activity.BaseActivity$UserListActivity">
 
 
 

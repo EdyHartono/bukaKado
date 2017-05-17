@@ -1,4 +1,4 @@
-package com.bukakado.bukakado.model;
+package com.bukakado.bukakado.model.request;
 
 /**
  * Created by edy.h on 5/11/2017.
