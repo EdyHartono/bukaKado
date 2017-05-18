@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
+import com.bukakado.bukakado.fragment.SignInBukaKadoFragment;
 import com.bukakado.bukakado.fragment.UserListFragment;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -43,14 +44,17 @@ public class MainActivity extends AppCompatActivity
                 TextView userEmail = (TextView) view.findViewById(R.id.userEmail);
                 ImageView userImage = (ImageView) view.findViewById(R.id.userProfile);
 
-                try {
-                    String profilePicture = "https://graph.facebook.com/me/picture?width=150&height=150&access_token="+AccessToken.getCurrentAccessToken().getToken();
-                    userName.setText(object.getString("name").toString());
-                    userEmail.setText(object.getString("email").toString());
-                    new DownloadActivity(userImage).execute(profilePicture);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).setMessage(e.getMessage()).show();
+                if(object!=null)
+                {
+                    try {
+                        String profilePicture = "https://graph.facebook.com/me/picture?width=150&height=150&access_token="+AccessToken.getCurrentAccessToken().getToken();
+                        userName.setText(object.getString("name").toString());
+                        //userEmail.setText(object.getString("email").toString());
+                        new DownloadActivity(userImage).execute(profilePicture);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).setMessage(e.getMessage()).show();
+                    }
                 }
             }
         });
@@ -117,7 +121,11 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_gallery) {
-
+            SignInBukaKadoFragment signInBukaKadoFragment = new SignInBukaKadoFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, signInBukaKadoFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

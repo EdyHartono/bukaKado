@@ -12,6 +12,7 @@
         android:gravity="center_horizontal"
         >
         <TextView
+            android:id="@+id/label1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username"
@@ -37,5 +38,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"/>
+
+        <TextView
+            android:id="@+id/txtErrorLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:theme="@style/ThemeOverlay.MyTitleText" />
     </LinearLayout>
 </LinearLayout>

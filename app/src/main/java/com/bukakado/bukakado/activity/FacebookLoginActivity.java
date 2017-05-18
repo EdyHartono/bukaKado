@@ -161,7 +161,7 @@ public class FacebookLoginActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-           startActivity(new Intent(FacebookLoginActivity.this,LoginActivity.class));
+           startActivity(new Intent(FacebookLoginActivity.this,MainActivity.class));
             //TODO must be delete
             /*
             mStatusTextView.setText(getString(R.string.facebook_status_fmt, user.getPhotoUrl()));
