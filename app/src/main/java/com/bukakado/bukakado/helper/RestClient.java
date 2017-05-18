@@ -40,7 +40,6 @@ public class RestClient {
         return createService(serviceClass, null, null);
     }
 
-
     public static <S> S createService(
             Class<S> serviceClass, final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {

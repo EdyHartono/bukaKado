@@ -1,12 +1,15 @@
 package com.bukakado.bukakado.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
+import com.bukakado.bukakado.constant.HTTTPStatus;
 import com.bukakado.bukakado.helper.RestClient;
 import com.bukakado.bukakado.interfaces.LoginInterface;
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
@@ -50,12 +53,13 @@ public class LoginActivity extends BaseActivity {
                     public void onResponse(Call<BukalapakLoginResponse> call, Response<BukalapakLoginResponse> response) {
                         int statusCode = response.code();
                         BukalapakLoginResponse bukalapakLoginResponse = response.body();
-                        if(bukalapakLoginResponse.getMessage()!=null)
-                        {
-                            AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).setMessage(bukalapakLoginResponse.getMessage()).show();
-                        }
-                        else {
-                            AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).setMessage("success login"+bukalapakLoginResponse.getToken()).show();
+                        if(statusCode == HTTTPStatus.OK && !TextUtils.isEmpty(bukalapakLoginResponse.getToken())) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            new AlertDialog.Builder(LoginActivity.this).setMessage(
+                                    bukalapakLoginResponse.getMessage() + statusCode
+                            ).show();
                         }
                     }
 
