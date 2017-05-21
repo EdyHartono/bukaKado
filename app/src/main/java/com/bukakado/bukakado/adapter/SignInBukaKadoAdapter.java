@@ -70,7 +70,7 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
 
                 String userName = txtUsername.getText().toString();
                 String password = txtPassword.getText().toString();
-                
+
                 BukaLapakClient result = RestClient.createService(BukaLapakClient.class,userName,password);
 
                 Call<BukalapakLoginResponse> responseCall=result.getAccessToken();
