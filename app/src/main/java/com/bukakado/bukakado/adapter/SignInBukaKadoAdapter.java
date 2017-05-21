@@ -1,7 +1,5 @@
 package com.bukakado.bukakado.adapter;
 
-import android.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
-import com.bukakado.bukakado.activity.LoginActivity;
 import com.bukakado.bukakado.helper.RestClient;
-import com.bukakado.bukakado.interfaces.AdapterCallback;
-import com.bukakado.bukakado.interfaces.LoginInterface;
+import com.bukakado.bukakado.interfaces.BukaLapakClient;
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +61,7 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
                 String userName = txtUsername.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                LoginInterface result = RestClient.createService(LoginInterface.class,userName,password);
+                BukaLapakClient result = RestClient.createService(BukaLapakClient.class,userName,password);
                 Call<BukalapakLoginResponse> responseCall=result.getAccessToken();
                 responseCall.enqueue(new Callback<BukalapakLoginResponse>() {
                     @Override

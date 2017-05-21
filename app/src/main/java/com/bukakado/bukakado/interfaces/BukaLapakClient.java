@@ -12,7 +12,7 @@ import retrofit2.http.POST;
  * Created by Jessica Casanova Lim on 5/14/2017.
  */
 
-public interface LoginInterface {
+public interface BukaLapakClient {
     @POST("v2/authenticate.json")
     Call<BukalapakLoginResponse> getAccessToken();
 }
