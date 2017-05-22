@@ -13,7 +13,7 @@ import retrofit2.http.Path;
  * Created by Jessica Casanova Lim on 5/22/2017.
  */
 
-public interface BukaKadoInterface {
+public interface BukaLapakClient {
     @POST("v2/authenticate.json")
     Call<BukalapakLoginResponse> getAccessToken();
 

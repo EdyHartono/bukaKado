@@ -2,7 +2,6 @@ package com.bukakado.bukakado.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +11,7 @@ import android.view.ViewGroup;
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.adapter.MyWishlistAdapter;
 import com.bukakado.bukakado.helper.RestClient;
-import com.bukakado.bukakado.interfaces.BukaKadoInterface;
-import com.bukakado.bukakado.model.response.userProfile.UserProfileResponse;
+import com.bukakado.bukakado.interfaces.BukaLapakClient;
 import com.bukakado.bukakado.model.response.wishlist.Product;
 import com.bukakado.bukakado.model.response.wishlist.WishlistResponse;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,7 +62,7 @@ public class MyWishlistFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userToken = dataSnapshot.getValue(String.class);
-                final BukaKadoInterface result = RestClient.createService(BukaKadoInterface.class,userToken);
+                final BukaLapakClient result = RestClient.createService(BukaLapakClient.class,userToken);
                 Call<WishlistResponse> responseCall=result.getWishlist("jessica_lim");
                 responseCall.enqueue(new Callback<WishlistResponse>() {
                     @Override

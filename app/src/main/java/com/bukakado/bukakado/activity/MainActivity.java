@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.fragment.MyWishlistFragment;
+import com.bukakado.bukakado.fragment.MatchedUserListFragment;
 import com.bukakado.bukakado.fragment.SignInBukaKadoFragment;
 import com.bukakado.bukakado.fragment.UserListFragment;
 import com.facebook.AccessToken;
@@ -134,7 +135,11 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_manage) {
-
+            MatchedUserListFragment matchedUserListFragment = new MatchedUserListFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, matchedUserListFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

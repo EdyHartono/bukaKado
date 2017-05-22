@@ -9,12 +9,11 @@ import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.helper.RestClient;
-import com.bukakado.bukakado.interfaces.BukaKadoInterface;
+import com.bukakado.bukakado.interfaces.BukaLapakClient;
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -70,7 +69,7 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
                 String userName = txtUsername.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                final BukaKadoInterface result = RestClient.createService(BukaKadoInterface.class,userName,password);
+                final BukaLapakClient result = RestClient.createService(BukaLapakClient.class,userName,password);
                 Call<BukalapakLoginResponse> responseCall=result.getAccessToken();
                 responseCall.enqueue(new Callback<BukalapakLoginResponse>() {
                     @Override

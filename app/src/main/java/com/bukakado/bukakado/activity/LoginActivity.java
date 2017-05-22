@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.constant.HTTTPStatus;
+import com.bukakado.bukakado.helper.AppSession;
 import com.bukakado.bukakado.helper.RestClient;
-import com.bukakado.bukakado.interfaces.BukaKadoInterface;
+import com.bukakado.bukakado.interfaces.BukaLapakClient;
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
 
 import retrofit2.Call;
@@ -27,11 +28,13 @@ public class LoginActivity extends BaseActivity {
     private Button buttonLogin;
     private TextView txtUsername;
     private TextView txtPassword;
+    private AppSession session;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.sign_in_bukakado);
+        session = new AppSession(this);
 
         txtUsername = (TextView) findViewById(R.id.txtUsername);
         txtPassword = (TextView) findViewById(R.id.txtPassword);
@@ -42,7 +45,7 @@ public class LoginActivity extends BaseActivity {
                 final String userName = txtUsername.getText().toString();
                 final String password = txtPassword.getText().toString();
 
-                BukaKadoInterface result = RestClient.createService(BukaKadoInterface.class,userName,password);
+                BukaLapakClient result = RestClient.createService(BukaLapakClient.class,userName,password);
                 Call<BukalapakLoginResponse> responseCall=result.getAccessToken();
                 responseCall.enqueue(new Callback<BukalapakLoginResponse>() {
                     @Override
@@ -50,6 +53,7 @@ public class LoginActivity extends BaseActivity {
                         int statusCode = response.code();
                         BukalapakLoginResponse bukalapakLoginResponse = response.body();
                         if(statusCode == HTTTPStatus.OK && !TextUtils.isEmpty(bukalapakLoginResponse.getToken())) {
+                            session.setBukaLapakToken(bukalapakLoginResponse.getToken());
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
