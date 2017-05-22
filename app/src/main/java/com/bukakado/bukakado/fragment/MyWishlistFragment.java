@@ -12,6 +12,7 @@ import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.adapter.MyWishlistAdapter;
 import com.bukakado.bukakado.helper.RestClient;
 import com.bukakado.bukakado.interfaces.BukaLapakClient;
+import com.bukakado.bukakado.model.response.userProfile.UserProfileResponse;
 import com.bukakado.bukakado.model.response.wishlist.Product;
 import com.bukakado.bukakado.model.response.wishlist.WishlistResponse;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,28 +58,55 @@ public class MyWishlistFragment extends Fragment {
         mDataSet = new ArrayList<>();
         mAdapter = new MyWishlistAdapter(mDataSet);
 
-
         bukalapakUserTokenRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userToken = dataSnapshot.getValue(String.class);
-                final BukaLapakClient result = RestClient.createService(BukaLapakClient.class,userToken);
-                Call<WishlistResponse> responseCall=result.getWishlist("jessica_lim");
-                responseCall.enqueue(new Callback<WishlistResponse>() {
+                final BukaLapakClient result = RestClient.createService(BukaLapakClient.class, userToken);
+
+                bukalapakUserProfileRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onResponse(Call<WishlistResponse> call, Response<WishlistResponse> response) {
-                        WishlistResponse wishlistResponse = response.body();
-                        if(wishlistResponse!=null)
-                        {
-                            for (Product product: wishlistResponse.getProducts()) {
-                                mDataSet.add(product);
-                                mAdapter.notifyDataSetChanged();
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                      String userId = String.valueOf(dataSnapshot.getValue());
+
+                        Call<UserProfileResponse> userProfileResponseCall=result.getUserProfile(userId);
+                        userProfileResponseCall.enqueue(new Callback<UserProfileResponse>() {
+                            @Override
+                            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
+                                UserProfileResponse userProfileResponse = response.body();
+                                if(userProfileResponse!=null)
+                                {
+                                    String user_name =userProfileResponse.getUser().getUsername();
+                                    Call<WishlistResponse> responseCall=result.getWishlist(user_name);
+                                    responseCall.enqueue(new Callback<WishlistResponse>() {
+                                    @Override
+                                    public void onResponse(Call<WishlistResponse> call, Response<WishlistResponse> response) {
+                                    WishlistResponse wishlistResponse = response.body();
+                                    if(wishlistResponse!=null)
+                                        {
+                                            for (Product product: wishlistResponse.getProducts()) {
+                                                mDataSet.add(product);
+                                                mAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<WishlistResponse> call, Throwable t) {
+                                    }
+                                    });
+                                }
                             }
-                        }
+
+                            @Override
+                            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                            }
+                        });
                     }
 
                     @Override
-                    public void onFailure(Call<WishlistResponse> call, Throwable t) {
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
             }
