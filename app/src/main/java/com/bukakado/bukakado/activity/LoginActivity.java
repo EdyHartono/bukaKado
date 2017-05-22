@@ -11,16 +11,12 @@ import android.widget.TextView;
 import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.constant.HTTTPStatus;
 import com.bukakado.bukakado.helper.RestClient;
-import com.bukakado.bukakado.interfaces.LoginInterface;
+import com.bukakado.bukakado.interfaces.BukaKadoInterface;
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
-import com.twitter.sdk.android.core.internal.network.OkHttpClientHelper;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Jessica Casanova Lim on 5/13/2017.
@@ -46,7 +42,7 @@ public class LoginActivity extends BaseActivity {
                 final String userName = txtUsername.getText().toString();
                 final String password = txtPassword.getText().toString();
 
-                LoginInterface result = RestClient.createService(LoginInterface.class,userName,password);
+                BukaKadoInterface result = RestClient.createService(BukaKadoInterface.class,userName,password);
                 Call<BukalapakLoginResponse> responseCall=result.getAccessToken();
                 responseCall.enqueue(new Callback<BukalapakLoginResponse>() {
                     @Override

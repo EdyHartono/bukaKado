@@ -12,8 +12,8 @@
             android:title="Sign In Bukalapak" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:icon="@drawable/ic_favorite_border_black_24dp"
+            android:title="My Wishlist" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

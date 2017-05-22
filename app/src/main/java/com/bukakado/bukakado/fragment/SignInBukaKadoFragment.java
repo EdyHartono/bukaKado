@@ -24,7 +24,6 @@ public class SignInBukaKadoFragment extends Fragment implements AdapterCallback{
     private RecyclerView mRecyclerView;
     private SignInBukaKadoAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private SignInBukaKadoAdapter signInBukaKadoAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

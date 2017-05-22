@@ -1,7 +1,5 @@
 package com.bukakado.bukakado.adapter;
 
-import android.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +8,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
-import com.bukakado.bukakado.activity.LoginActivity;
 import com.bukakado.bukakado.helper.RestClient;
-import com.bukakado.bukakado.interfaces.AdapterCallback;
-import com.bukakado.bukakado.interfaces.LoginInterface;
+import com.bukakado.bukakado.interfaces.BukaKadoInterface;
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -76,7 +70,7 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
                 String userName = txtUsername.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                final LoginInterface result = RestClient.createService(LoginInterface.class,userName,password);
+                final BukaKadoInterface result = RestClient.createService(BukaKadoInterface.class,userName,password);
                 Call<BukalapakLoginResponse> responseCall=result.getAccessToken();
                 responseCall.enqueue(new Callback<BukalapakLoginResponse>() {
                     @Override
@@ -88,7 +82,8 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
                             txtError.setText(bukalapakLoginResponse.getMessage());
                         }
                         else {
-                            resultMap.put("userToken", bukalapakLoginResponse.getToken());
+                            resultMap.put("bukalapakUserId", bukalapakLoginResponse.getUser_id());
+                            resultMap.put("bukalapakUserToken", bukalapakLoginResponse.getToken());
                             ref.child(userUID).updateChildren(resultMap);
                             txtError.setText("success login"+bukalapakLoginResponse.getToken());
                         }
