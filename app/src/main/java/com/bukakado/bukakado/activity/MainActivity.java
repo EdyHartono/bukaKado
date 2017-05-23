@@ -1,6 +1,7 @@
 package com.bukakado.bukakado.activity;
 
 import android.support.design.widget.NavigationView;
+import android.text.TextUtils;
 import android.view.View;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,12 @@ import com.bukakado.bukakado.fragment.UserListFragment;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +39,10 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    DatabaseReference bukalapakUserTokenRef = database.getReference("users").child(userUID).child("bukalapakUserToken");
+    Menu nav_menu;
     private  void setFacebookProfile(NavigationView navigationView)
     {
         final View view  = navigationView.getHeaderView(0);
@@ -88,6 +98,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        nav_menu = navigationView.getMenu();
+        nav_menu.findItem(R.id.nav_my_wishlist).setVisible(false);
+        nav_menu.findItem(R.id.nav_matched_user_list).setVisible(false);
         setFacebookProfile(navigationView);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -112,29 +125,45 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        bukalapakUserTokenRef.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String userToken = dataSnapshot.getValue(String.class);
+                boolean visible=true;
+                if(TextUtils.isEmpty(userToken)){
+                    nav_menu.findItem(R.id.nav_my_wishlist).setVisible(true);
+                    nav_menu.findItem(R.id.nav_matched_user_list).setVisible(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         View mainContainer = findViewById(R.id.fragment_container);
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_view_user) {
             UserListFragment userListFragment = new UserListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, userListFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_sign_in_bukalapak) {
             SignInBukaKadoFragment signInBukaKadoFragment = new SignInBukaKadoFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, signInBukaKadoFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_my_wishlist) {
             MyWishlistFragment myWishlistFragment = new MyWishlistFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, myWishlistFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_matched_user_list) {
             MatchedUserListFragment matchedUserListFragment = new MatchedUserListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, matchedUserListFragment);
