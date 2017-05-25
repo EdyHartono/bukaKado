@@ -1,12 +1,15 @@
 package com.bukakado.bukakado.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -54,11 +57,23 @@ public class MatchedUserListFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
 
+        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         myDataset = new ArrayList<>();
-        mAdapter = new MatchedUserListAdpater(myDataset);
+        mAdapter = new MatchedUserListAdpater(myDataset, new MatchedUserListAdpater.OnItemClickListener() {
+            @Override
+            public void onItemClick() {
+                DialogFragment fragment = new UserWishlistFragment();
+                fragment.show(getFragmentManager(), "fwekfkwkfwk");
+            }
+        });
         attachMatchedUserListener("user1");
         attachMatchedUserListener("user2");
 
