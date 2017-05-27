@@ -77,16 +77,6 @@ public class UseListAdapter extends RecyclerView.Adapter<UseListAdapter.ViewHold
         holder.userGender.setText(mDataset.get(position).getSex());
         holder.userCountry.setText(mDataset.get(position).getCountry());
         new DownloadActivity(holder.userPhoto).execute(mDataset.get(position).getPhotoUrl());
-//        try {
-//
-//            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(mDataset.get(position).getPhotoUrl())
-//                            .getContent());
-//            holder.userPhoto.setImageBitmap(bitmap);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override

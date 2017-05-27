@@ -31,7 +31,7 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
     private static final int USER_ID_TAG = 1;
     private OnItemClickListener listener;
     public interface OnItemClickListener {
-        void onItemClick();
+        void onItemClick(ViewHolder holder);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,8 +40,6 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
         public TextView userName, userCountry, userGender;
         public ImageView userPhoto;
         public Button requestBtn;
-        private DatabaseReference relationDbRef = FirebaseDatabase.getInstance().getReference().child("relation");
-        private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         public ViewHolder(View v) {
             super(v);
@@ -55,7 +53,7 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
             requestBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick();
+                    listener.onItemClick(ViewHolder.this);
                 }
             });
 

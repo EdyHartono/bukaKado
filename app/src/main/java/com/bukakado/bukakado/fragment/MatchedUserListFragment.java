@@ -57,20 +57,17 @@ public class MatchedUserListFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
 
-        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         myDataset = new ArrayList<>();
         mAdapter = new MatchedUserListAdpater(myDataset, new MatchedUserListAdpater.OnItemClickListener() {
             @Override
-            public void onItemClick() {
+            public void onItemClick(MatchedUserListAdpater.ViewHolder holder) {
                 DialogFragment fragment = new UserWishlistFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("bukalapakUsername", holder.userName.getTag().toString());
+                fragment.setArguments(bundle);
                 fragment.show(getFragmentManager(), "fwekfkwkfwk");
             }
         });
