@@ -31,7 +31,7 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
     private static final int USER_ID_TAG = 1;
     private OnItemClickListener listener;
     public interface OnItemClickListener {
-        void onItemClick();
+        void onItemClick(ViewHolder viewHolder);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,11 +51,15 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
             userGender = (TextView)mView.findViewById(R.id.txtUserSex);
             userPhoto = (ImageView)mView.findViewById(R.id.imgUserPhoto);
             requestBtn = (Button)mView.findViewById(R.id.requestBtn);
-
+            requestBtn.setText("View Wishlist");
+            requestBtn.getLayoutParams().width=200;
             requestBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick();
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+//                    builder.setMessage(userName.getTag().toString());
+//                    AlertDialog alertDialog = builder.show();
+                    listener.onItemClick(ViewHolder.this);
                 }
             });
 

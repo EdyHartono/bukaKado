@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         nav_menu = navigationView.getMenu();
-        nav_menu.findItem(R.id.nav_my_wishlist).setVisible(false);
-        nav_menu.findItem(R.id.nav_matched_user_list).setVisible(false);
+//        nav_menu.findItem(R.id.nav_my_wishlist).setVisible(false);
+//        nav_menu.findItem(R.id.nav_matched_user_list).setVisible(false);
         setFacebookProfile(navigationView);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -125,22 +125,23 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        bukalapakUserTokenRef.addListenerForSingleValueEvent(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String userToken = dataSnapshot.getValue(String.class);
-                boolean visible=true;
-                if(TextUtils.isEmpty(userToken)){
-                    nav_menu.findItem(R.id.nav_my_wishlist).setVisible(true);
-                    nav_menu.findItem(R.id.nav_matched_user_list).setVisible(true);
-                }
-            }
+//        bukalapakUserTokenRef.addListenerForSingleValueEvent(new ValueEventListener(){
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String userToken = dataSnapshot.getValue(String.class);
+//                boolean visible=true;
+//                if(TextUtils.isEmpty(userToken)){
+//                    nav_menu.findItem(R.id.nav_my_wishlist).setVisible(true);
+//                    nav_menu.findItem(R.id.nav_matched_user_list).setVisible(true);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         View mainContainer = findViewById(R.id.fragment_container);
