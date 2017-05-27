@@ -49,7 +49,8 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
             userGender = (TextView)mView.findViewById(R.id.txtUserSex);
             userPhoto = (ImageView)mView.findViewById(R.id.imgUserPhoto);
             requestBtn = (Button)mView.findViewById(R.id.requestBtn);
-
+            requestBtn.setText("View Wishlist");
+            requestBtn.getLayoutParams().width=200;
             requestBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

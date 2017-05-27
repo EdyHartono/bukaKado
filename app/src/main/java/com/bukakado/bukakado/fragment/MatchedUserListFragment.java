@@ -33,7 +33,6 @@ import java.util.List;
  */
 
 public class MatchedUserListFragment extends Fragment {
-
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -62,13 +61,13 @@ public class MatchedUserListFragment extends Fragment {
 
         myDataset = new ArrayList<>();
         mAdapter = new MatchedUserListAdpater(myDataset, new MatchedUserListAdpater.OnItemClickListener() {
-            @Override
-            public void onItemClick(MatchedUserListAdpater.ViewHolder holder) {
+
+            public void onItemClick(MatchedUserListAdpater.ViewHolder viewHolder) {
                 DialogFragment fragment = new UserWishlistFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("bukalapakUsername", holder.userName.getTag().toString());
+                bundle.putString("userUUID", viewHolder.userName.getTag().toString());
                 fragment.setArguments(bundle);
-                fragment.show(getFragmentManager(), "fwekfkwkfwk");
+                fragment.show(getFragmentManager(),"");
             }
         });
         attachMatchedUserListener("user1");

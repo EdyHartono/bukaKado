@@ -96,7 +96,6 @@ public class FacebookLoginActivity extends BaseActivity implements
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        insertUser(currentUser);
         updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -127,6 +126,7 @@ public class FacebookLoginActivity extends BaseActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            insertUser(user);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
