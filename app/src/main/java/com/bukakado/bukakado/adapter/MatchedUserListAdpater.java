@@ -48,7 +48,7 @@ public class MatchedUserListAdpater extends RecyclerView.Adapter<MatchedUserList
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(ViewHolder viewHolder);
+        void onItemClick(ViewHolder holder);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.bukakado.bukakado.R;
 import com.bukakado.bukakado.adapter.MyWishlistAdapter;
 import com.bukakado.bukakado.helper.RestClient;
 import com.bukakado.bukakado.interfaces.BukaLapakClient;
+import com.bukakado.bukakado.model.response.wishlist.Product;
+import com.bukakado.bukakado.model.response.wishlist.WishlistResponse;
 import com.bukakado.bukakado.model.response.userProfile.UserProfileResponse;
 import com.bukakado.bukakado.model.response.wishlist.Product;
 import com.bukakado.bukakado.model.response.wishlist.WishlistResponse;
@@ -38,6 +41,7 @@ public class UserWishlistFragment extends DialogFragment {
     private RecyclerView mRecyclerView;
     private MyWishlistAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userUID;
     DatabaseReference bukalapakUserTokenRef;
@@ -133,15 +137,5 @@ public class UserWishlistFragment extends DialogFragment {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        UserWishlistFragment.this.getDialog().cancel();
-                    }
-                });
-        return builder.create();
-        */
     }
 }

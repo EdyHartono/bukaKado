@@ -23,6 +23,7 @@ import com.bukakado.bukakado.fragment.MyWishlistFragment;
 import com.bukakado.bukakado.fragment.MatchedUserListFragment;
 import com.bukakado.bukakado.fragment.SignInBukaKadoFragment;
 import com.bukakado.bukakado.fragment.UserListFragment;
+import com.bukakado.bukakado.model.User;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    DatabaseReference bukalapakUserTokenRef = database.getReference("users").child(userUID).child("bukalapakUserToken");
+    DatabaseReference bukalapakUserTokenRef = database.getReference("users").child(userUID);
     Menu nav_menu;
     private  void setFacebookProfile(NavigationView navigationView)
     {
@@ -83,24 +84,31 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        bukalapakUserTokenRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                nav_menu = navigationView.getMenu();
+                if (user.getBukalapakUserToken() == null) {
+                    nav_menu.findItem(R.id.nav_my_wishlist).setVisible(false);
+                    nav_menu.findItem(R.id.nav_matched_user_list).setVisible(false);
+                } else {
+                    nav_menu.findItem(R.id.nav_my_wishlist).setVisible(true);
+                    nav_menu.findItem(R.id.nav_matched_user_list).setVisible(true);
+                }
+            }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        nav_menu = navigationView.getMenu();
-//        nav_menu.findItem(R.id.nav_my_wishlist).setVisible(false);
-//        nav_menu.findItem(R.id.nav_matched_user_list).setVisible(false);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         setFacebookProfile(navigationView);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -125,22 +133,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-//        bukalapakUserTokenRef.addListenerForSingleValueEvent(new ValueEventListener(){
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String userToken = dataSnapshot.getValue(String.class);
-//                boolean visible=true;
-//                if(TextUtils.isEmpty(userToken)){
-//                    nav_menu.findItem(R.id.nav_my_wishlist).setVisible(true);
-//                    nav_menu.findItem(R.id.nav_matched_user_list).setVisible(true);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -170,10 +162,6 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, matchedUserListFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

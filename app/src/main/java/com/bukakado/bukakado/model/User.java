@@ -13,6 +13,8 @@ public class User {
     private String email;
     private String country;
     private String sex;
+    private Long bukalapakUserId;
+    private String bukalapakUserToken;
 
     public User() {
 
@@ -84,4 +86,19 @@ public class User {
         this.sex = sex;
     }
 
+    public Long getBukalapakUserId() {
+        return bukalapakUserId;
+    }
+
+    public void setBukalapakUserId(Long bukalapakUserId) {
+        this.bukalapakUserId = bukalapakUserId;
+    }
+
+    public String getBukalapakUserToken() {
+        return bukalapakUserToken;
+    }
+
+    public void setBukalapakUserToken(String bukalapakUserToken) {
+        this.bukalapakUserToken = bukalapakUserToken;
+    }
 }
