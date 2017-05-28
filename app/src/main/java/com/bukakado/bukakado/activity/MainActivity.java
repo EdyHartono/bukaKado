@@ -112,6 +112,11 @@ public class MainActivity extends AppCompatActivity
         });
         setFacebookProfile(navigationView);
         navigationView.setNavigationItemSelectedListener(this);
+        UserListFragment userListFragment = new UserListFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, userListFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
