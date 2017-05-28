@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="testing"
-            android:textSize="40dp"
+            android:textSize="20sp"
             android:layout_alignTop="@+id/productImage"
             android:layout_toEndOf="@+id/productImage"
             android:id="@+id/txtProductName"/>

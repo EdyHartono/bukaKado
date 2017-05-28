@@ -47,7 +47,7 @@ public class MyWishlistAdapter  extends RecyclerView.Adapter<MyWishlistAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.txtProductName.setText(mDataset.get(position).getActive().toString());
+        holder.txtProductName.setText(mDataset.get(position).getName());
         new DownloadActivity(holder.productImage).execute(mDataset.get(position).getImages().get(0));
     }
 
