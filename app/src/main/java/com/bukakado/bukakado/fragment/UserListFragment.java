@@ -42,7 +42,7 @@ public class UserListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
 
@@ -54,6 +54,7 @@ public class UserListFragment extends Fragment {
         final List<User> myDataset;
         myDataset = new ArrayList<>();
         mAdapter = new UseListAdapter(myDataset);
+
         userDbRef.orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

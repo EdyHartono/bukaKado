@@ -1,6 +1,7 @@
 package com.bukakado.bukakado.interfaces;
 
 import com.bukakado.bukakado.model.response.BukalapakLoginResponse;
+import com.bukakado.bukakado.model.response.userAddress.UserAddressResponse;
 import com.bukakado.bukakado.model.response.userProfile.UserProfileResponse;
 import com.bukakado.bukakado.model.response.wishlist.WishlistResponse;
 
@@ -22,4 +23,7 @@ public interface BukaLapakClient {
 
     @GET("v2/users/{id}/profile.json")
     Call<UserProfileResponse> getUserProfile(@Path("id") String id);
+
+    @GET("v2/user_addresses.json")
+    Call<UserAddressResponse> getUserAddress();
 }

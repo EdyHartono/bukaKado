@@ -33,7 +33,7 @@ public class UseListAdapter extends RecyclerView.Adapter<UseListAdapter.ViewHold
         public View mView;
         public TextView userName, userCountry, userGender;
         public ImageView userPhoto;
-        public Button requestBtn;
+        public Button requestBtn,viewUserAddressButton;
         private DatabaseReference relationDbRef = FirebaseDatabase.getInstance().getReference().child("relation");
         private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -45,7 +45,8 @@ public class UseListAdapter extends RecyclerView.Adapter<UseListAdapter.ViewHold
             userGender = (TextView)mView.findViewById(R.id.txtUserSex);
             userPhoto = (ImageView)mView.findViewById(R.id.imgUserPhoto);
             requestBtn = (Button)mView.findViewById(R.id.requestBtn);
-
+            viewUserAddressButton = (Button) mView.findViewById(R.id.viewUserAddressButton);
+            viewUserAddressButton.setVisibility(View.GONE);
             requestBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -53,6 +54,7 @@ public class UseListAdapter extends RecyclerView.Adapter<UseListAdapter.ViewHold
                     requestBtn.setClickable(false);
                 }
             });
+
         }
     }
 
