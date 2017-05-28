@@ -35,7 +35,7 @@ public class SignInBukaKadoFragment extends Fragment implements AdapterCallback{
         super.onActivityCreated(savedInstanceState);
         mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new SignInBukaKadoAdapter(getActivity());
+        mAdapter = new SignInBukaKadoAdapter(getActivity(), getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);

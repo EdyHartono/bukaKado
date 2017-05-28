@@ -1,5 +1,7 @@
 package com.bukakado.bukakado.adapter;
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bukakado.bukakado.R;
+import com.bukakado.bukakado.fragment.UserListFragment;
 import com.bukakado.bukakado.helper.AppSession;
 import com.bukakado.bukakado.helper.RestClient;
 import com.bukakado.bukakado.interfaces.BukaLapakClient;
@@ -32,11 +35,13 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
     String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     HashMap<String, Object> resultMap = new HashMap<>();
     Context parentContext;
+    Activity parentActivity;
 
     int size=0;
-    public SignInBukaKadoAdapter(Context context) {
+    public SignInBukaKadoAdapter(Context context, Activity activity) {
         size=1;
         this.parentContext = context;
+        this.parentActivity = activity;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -89,7 +94,11 @@ public class SignInBukaKadoAdapter extends RecyclerView.Adapter<SignInBukaKadoAd
                             ref.child(userUID).updateChildren(resultMap);
                             AppSession appSession = new AppSession(parentContext);
                             appSession.setBukaLapakToken(bukalapakLoginResponse.getToken());
-                            txtError.setText("success login"+bukalapakLoginResponse.getToken());
+                            UserListFragment userListFragment = new UserListFragment();
+                            FragmentTransaction transaction = parentActivity.getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragment_container, userListFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         }
                     }
 

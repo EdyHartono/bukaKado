@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity
                     nav_menu.findItem(R.id.nav_my_wishlist).setVisible(false);
                     nav_menu.findItem(R.id.nav_matched_user_list).setVisible(false);
                 } else {
+                    nav_menu.findItem(R.id.nav_sign_in_bukalapak).setVisible(false);
                     nav_menu.findItem(R.id.nav_my_wishlist).setVisible(true);
                     nav_menu.findItem(R.id.nav_matched_user_list).setVisible(true);
                 }
